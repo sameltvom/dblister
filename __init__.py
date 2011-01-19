@@ -8,19 +8,24 @@ class DblisterPlugin (rb.Plugin):
 	def activate(self, shell):
 		self.shell = shell
 		print '##### dblister #####'
+	
 
-		
-		print '--- Trying to print using library_source'
+		#################### Print all artists in the library ####################
+		artists = set() # unique keys, no duplicates
 		for row in self.shell.props.library_source.props.base_query_model:
 		 	entry = row[0]
 		 	artist = self.shell.props.db.entry_get(entry, rhythmdb.PROP_ARTIST)
+			artists.add(artist)
+
+		print '--- artists using library_source---'
+		for artist in artists:
 			print artist
+		
+		del artists
 
 
 		##################### Print all artists in database ######################
 
-		# loop through all songs currently selected (i.e. all songs since we did p.set_selection([""]) above
-		# for each song, try to add the artist name to the 'artists' set
 		artists = set() # unique keys, no duplicates
 		for row in self.shell.props.selected_source.props.base_query_model:
 		 	entry = row[0]
@@ -35,8 +40,6 @@ class DblisterPlugin (rb.Plugin):
 		##################### Print all songs in database ######################
 
 		print '--- songs ---'
-		# loop through all songs currently selected (i.e. all songs since we did p.set_selection([""]) above
-		# for each song, print artist name and title
 		for row in self.shell.props.selected_source.props.base_query_model:
 		 	entry = row[0]
 		 	artist = self.shell.props.db.entry_get(entry, rhythmdb.PROP_ARTIST)
