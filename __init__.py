@@ -19,6 +19,14 @@ class DblisterPlugin (rb.Plugin):
 				break
 		gtk.gdk.threads_leave()
 
+		print '--- Trying to print using library_source'
+		for row in self.shell.props.library_source.props.base_query_model:
+		 	entry = row[0]
+		 	artist = self.shell.props.db.entry_get(entry, rhythmdb.PROP_ARTIST)
+			print artist
+
+
+
 		##################### Print all artists in database ######################
 
 		# loop through all songs currently selected (i.e. all songs since we did p.set_selection([""]) above
