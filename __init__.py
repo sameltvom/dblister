@@ -17,24 +17,12 @@ class DblisterPlugin (rb.Plugin):
 			print artist
 
 
-		# choose all artists, this will choose all albums and songs as well
-		
-		# get the lock for rhythmbox ui
-		gtk.gdk.threads_enter()
-		for p in self.shell.props.library_source.get_property_views():
-			if p.props.prop == rhythmdb.PROP_ARTIST:
-				p.set_selection([""])
-				break
-		gtk.gdk.threads_leave()
-
-
-
 		##################### Print all artists in database ######################
 
 		# loop through all songs currently selected (i.e. all songs since we did p.set_selection([""]) above
 		# for each song, try to add the artist name to the 'artists' set
 		artists = set() # unique keys, no duplicates
-		for row in self.shell.props.selected_source.props.query_model:
+		for row in self.shell.props.selected_source.props.base_query_model:
 		 	entry = row[0]
 		 	artist = self.shell.props.db.entry_get(entry, rhythmdb.PROP_ARTIST)
 			artists.add(artist)
@@ -49,7 +37,7 @@ class DblisterPlugin (rb.Plugin):
 		print '--- songs ---'
 		# loop through all songs currently selected (i.e. all songs since we did p.set_selection([""]) above
 		# for each song, print artist name and title
-		for row in self.shell.props.selected_source.props.query_model:
+		for row in self.shell.props.selected_source.props.base_query_model:
 		 	entry = row[0]
 		 	artist = self.shell.props.db.entry_get(entry, rhythmdb.PROP_ARTIST)
 		 	song = self.shell.props.db.entry_get(entry, rhythmdb.PROP_TITLE)
