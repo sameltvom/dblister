@@ -1,0 +1,9 @@
+[RB Plugin]
+Loader=python
+Module=dblister
+IAge=1
+Name=dblister
+Description=A db lister
+Authors=Samuel Skånberg
+Copyright=Copyright © 2010 Samuel Skånberg <samuel_skanberg@yahoo.se>
+Website=TBD
