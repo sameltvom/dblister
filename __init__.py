@@ -9,6 +9,14 @@ class DblisterPlugin (rb.Plugin):
 		self.shell = shell
 		print '##### dblister #####'
 
+		
+		print '--- Trying to print using library_source'
+		for row in self.shell.props.library_source.props.base_query_model:
+		 	entry = row[0]
+		 	artist = self.shell.props.db.entry_get(entry, rhythmdb.PROP_ARTIST)
+			print artist
+
+
 		# choose all artists, this will choose all albums and songs as well
 		
 		# get the lock for rhythmbox ui
@@ -18,12 +26,6 @@ class DblisterPlugin (rb.Plugin):
 				p.set_selection([""])
 				break
 		gtk.gdk.threads_leave()
-
-		print '--- Trying to print using library_source'
-		for row in self.shell.props.library_source.props.base_query_model:
-		 	entry = row[0]
-		 	artist = self.shell.props.db.entry_get(entry, rhythmdb.PROP_ARTIST)
-			print artist
 
 
 
